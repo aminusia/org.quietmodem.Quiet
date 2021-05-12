@@ -1,5 +1,4 @@
 #include "quiet-jni.h"
-#include <android/log.h>
 
 void quiet_android_record_callback(void *dec_v, const float *buf, size_t num_frames) {
     quiet_decoder *d = (quiet_decoder *)dec_v;
@@ -123,29 +122,21 @@ JNIEXPORT jlong JNICALL Java_org_quietmodem_Quiet_BaseFrameReceiver_nativeRecv(
     ssize_t nrecv = quiet_decoder_recv(dec->dec, buf + offset, len);
 
     if (nrecv == 0) {
-        __android_log_print(ANDROID_LOG_ERROR, "QUIET", "BaseFrameReceiver receive length 0");
         throw_error(env, cache.java.eof_exception_klass, "EOF");
     } else if (nrecv < 0) {
         quiet_error err = quiet_get_last_error();
-    
-
         nrecv = 0;
         switch(err) {
             case quiet_would_block:
-                __android_log_print(ANDROID_LOG_ERROR, "QUIET", "BaseFrameReceiver fail %d would block ", (int)err);
                 throw_error(env, cache.java.io_exception_klass, "Asynchronous operation would block");
                 break;
             case quiet_timedout:
-                __android_log_print(ANDROID_LOG_ERROR, "QUIET", "BaseFrameReceiver fail %d timed out", (int)err);
                 throw_error(env, cache.java.socket_timeout_exception_klass, "Timed out");
                 break;
             default:
-                __android_log_print(ANDROID_LOG_ERROR, "QUIET", "BaseFrameReceiver fail %d unspecified I/O", (int)err);
                 throw_error(env, cache.java.io_exception_klass, "Unspecified I/O Error %d", err);
                 break;
         }
-    }else{
-        __android_log_print(ANDROID_LOG_ERROR, "QUIET", "BaseFrameReceiver receive length %d", (int)nrecv);
     }
 
     (*env)->ReleaseByteArrayElements(env, frame, buf, 0);
