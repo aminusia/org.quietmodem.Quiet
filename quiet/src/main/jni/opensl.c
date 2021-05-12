@@ -362,7 +362,8 @@ SLresult quiet_opensl_create_recorder(quiet_opensl_system *sys,
 
     SLAndroidConfigurationItf inputConfiguration;
     if ((*recorder)->GetInterface(recorder, SL_IID_ANDROIDCONFIGURATION, &inputConfiguration) == SL_RESULT_SUCCESS) {
-        SLuint32 presetValue = SL_ANDROID_RECORDING_PRESET_VOICE_RECOGNITION;
+        // SLuint32 presetValue = SL_ANDROID_RECORDING_PRESET_VOICE_RECOGNITION;
+        SLuint32 presetValue = SL_ANDROID_RECORDING_PRESET_UNPROCESSED;
         (*inputConfiguration)->SetConfiguration(inputConfiguration, SL_ANDROID_KEY_RECORDING_PRESET, &presetValue, sizeof(SLuint32));
     }
 
