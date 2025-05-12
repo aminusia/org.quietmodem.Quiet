@@ -1,8 +1,9 @@
 package org.quietmodem.Quiet;
 
-import android.support.test.InstrumentationRegistry;
-import android.support.test.runner.AndroidJUnit4;
-import android.test.suitebuilder.annotation.SmallTest;
+import androidx.test.platform.app.InstrumentationRegistry;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.filters.SmallTest;
+
 
 import static org.junit.Assert.*;
 
@@ -23,14 +24,14 @@ public class AudioFrameTest {
 
         try {
             /* if you are running a MainActivity
-             * then replace InstrumentationRegistry.getTargetContext()
+             * then replace InstrumentationRegistry.getInstrumentation().getTargetContext()
              * with `this`
              */
             transmitterConfig = new FrameTransmitterConfig(
-                    InstrumentationRegistry.getTargetContext(),
+                    InstrumentationRegistry.getInstrumentation().getTargetContext(),
                     "audible-7k-channel-0");
             receiverConfig = new FrameReceiverConfig(
-                    InstrumentationRegistry.getTargetContext(),
+                    InstrumentationRegistry.getInstrumentation().getTargetContext(),
                     "audible-7k-channel-0");
         } catch (IOException e) {
             fail("could not build configs");

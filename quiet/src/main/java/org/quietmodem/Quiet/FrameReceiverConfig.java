@@ -9,6 +9,8 @@ import android.media.MediaRecorder;
 import android.os.Build;
 import android.util.Log;
 
+import org.quietmodem.quiet.R;
+
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -87,7 +89,7 @@ public class FrameReceiverConfig {
             String pRate = m.getProperty(AudioManager.PROPERTY_OUTPUT_SAMPLE_RATE);
             int sampleRate = Integer.parseInt(pRate);
             Log.w("FrameReceiverConfig", pRate);
-            AudioDeviceInfo[] devices = m.getDevices(AudioManager.GET_DEVICES_ALL);
+            AudioDeviceInfo[] devices = m.getDevices(AudioManager.GET_DEVICES_INPUTS);
             for (int i = 0; i < devices.length; i++) {
                 Log.w("FrameReceiverConfig", String.format("%s %d %d", devices[i].getProductName().toString(), devices[i].getId(), devices[i].getType()));
                 int[] rates = devices[i].getSampleRates();

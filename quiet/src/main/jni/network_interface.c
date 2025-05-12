@@ -96,12 +96,12 @@ quiet_lwip_android *lwip_android_create(JNIEnv *env, quiet_lwip_driver_config *c
     }
 
     e->producer = opensl_producer_create(encoder_num_bufs, encoder_buf_len, encoder_sample_rate);
-    e->producer->produce = quiet_lwip_get_next_audio_packet;
+    e->producer->produce = (ssize_t (*)(void *, float *, size_t))quiet_lwip_get_next_audio_packet;
     e->producer->produce_arg = e->interface;
 
     e->consumer = opensl_consumer_create(decoder_num_bufs, decoder_buf_len, decoder_sample_rate,
                                          decoder_recording_preset);
-    e->consumer->consume = quiet_lwip_recv_audio_packet;
+    e->consumer->consume = (void (*)(void *, const float *, size_t))quiet_lwip_recv_audio_packet;
     e->consumer->consume_arg = e->interface;
 
     e->is_loopback = is_loopback;

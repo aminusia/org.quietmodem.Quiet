@@ -1,8 +1,8 @@
 package org.quietmodem.Quiet;
 
-import android.support.test.InstrumentationRegistry;
-import android.support.test.runner.AndroidJUnit4;
-import android.test.suitebuilder.annotation.MediumTest;
+import androidx.test.platform.app.InstrumentationRegistry;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.filters.MediumTest;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -10,6 +10,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static org.junit.Assert.*;
+
+import androidx.test.platform.app.InstrumentationRegistry;
+
 import java.io.IOException;
 import java.net.SocketException;
 
@@ -23,8 +26,14 @@ public class DatagramTest {
         FrameTransmitterConfig transmitterConfig = null;
 
         try {
-            transmitterConfig = new FrameTransmitterConfig(InstrumentationRegistry.getTargetContext(), "audible-7k-channel-0");
-            receiverConfig = new FrameReceiverConfig(InstrumentationRegistry.getTargetContext(), "audible-7k-channel-0");
+            transmitterConfig = new FrameTransmitterConfig(
+                    InstrumentationRegistry.getInstrumentation().getTargetContext(),
+                    "audible-7k-channel-0"
+            );
+            receiverConfig = new FrameReceiverConfig(
+                    InstrumentationRegistry.getInstrumentation().getTargetContext(),
+                    "audible-7k-channel-0"
+            );
         } catch (IOException e) {
             fail("could not build configs");
 

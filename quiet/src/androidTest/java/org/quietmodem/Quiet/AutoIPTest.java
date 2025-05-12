@@ -1,8 +1,8 @@
 package org.quietmodem.Quiet;
 
-import android.support.test.InstrumentationRegistry;
-import android.support.test.runner.AndroidJUnit4;
-import android.test.suitebuilder.annotation.LargeTest;
+import androidx.test.platform.app.InstrumentationRegistry;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.filters.LargeTest;
 import android.util.Log;
 
 import org.junit.AfterClass;
@@ -24,9 +24,11 @@ public class AutoIPTest {
         FrameTransmitterConfig transmitterConfig = null;
 
         try {
-            transmitterConfig = new FrameTransmitterConfig(InstrumentationRegistry.getTargetContext(),
+            transmitterConfig = new FrameTransmitterConfig(
+                    InstrumentationRegistry.getInstrumentation().getTargetContext(),
                     "audible-7k-channel-0");
-            receiverConfig = new FrameReceiverConfig(InstrumentationRegistry.getTargetContext(),
+            receiverConfig = new FrameReceiverConfig(
+                    InstrumentationRegistry.getInstrumentation().getTargetContext(),
                     "audible-7k-channel-0");
         } catch (IOException e) {
             fail("could not build configs");

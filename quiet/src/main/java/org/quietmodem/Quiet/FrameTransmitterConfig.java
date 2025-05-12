@@ -4,6 +4,8 @@ import android.content.Context;
 import android.media.AudioManager;
 import android.os.Build;
 
+import org.quietmodem.quiet.R;
+
 import java.io.IOException;
 import java.io.InputStream;
 
